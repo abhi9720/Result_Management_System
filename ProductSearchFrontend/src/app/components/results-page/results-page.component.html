@@ -1,0 +1,116 @@
+<div class="container py-3">
+
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Display error message if no results are found -->
+
+      <div *ngIf="notResultMsg?.length != 0" class="no-result">
+        <h3>No Result Found</h3>
+        <p>Sorry, we couldn't find any results matching your search criteria.</p>
+      </div>
+
+    </div>
+  </div>
+  <app-back-button></app-back-button>
+
+  <div class="row resultpage" *ngIf="notResultMsg?.length === 0">
+    
+    <h2 class="h2 text-center my-3">Search Results</h2>
+
+    
+
+
+    <div class="col-md-3">
+      
+
+      <div class="sticky-sidebar">
+
+        <!-- Filter products by brand -->
+        <div class="filter-section">
+          <h6 class="h6">Filter by Brand</h6>
+          <select name="brand" [(ngModel)]="selectedBrand" class="brand-filter form-select form-select-lg mb-3"
+            (change)="filterByBrand()">
+            <option value="">All Brands</option>
+            <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+          </select>
+        </div>
+  
+  
+        <!-- Filter products by price range -->
+        <div *ngIf="isLoggedIn" class="filter-section">
+          <h6 class="h6">Filter by Price Range</h6>
+          <div class="filter-wrapper">
+            <div class="form-group price-filter">
+              <label for="minPrice">Min Price</label>
+              <input type="number" [(ngModel)]="minPrice" class="form-control form-control-lg" id="minPrice"
+                name="minPrice" placeholder="Min Price">
+            </div>
+  
+            <div class="form-group price-filter">
+              <label for="maxPrice">Max Price</label>
+              <input type="number" [(ngModel)]="maxPrice" class="form-control form-control-lg" id="maxPrice"
+                placeholder="Max Price">
+            </div>
+  
+            <div class="d-flex align-items-end">
+              <button (click)="filterByPriceRange()" class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+        </div>
+</div>
+
+    </div>
+
+    <div class="col-md-9 display-result">
+      <div class="row">
+        <div *ngIf="noMatchingProduct?.length != 0" class="no-result">
+          <h3>No Matching Product Found</h3>
+          <p>Sorry, we couldn't find any results matching your search criteria.</p>
+        </div>
+        <div class="col-md-12" >
+          
+          <div class="product-card" *ngFor="let result of searchResults">
+            <div class="row">
+              <div class="col-lg-3 col-md-6">
+                <div class="product-image">
+                  <img *ngIf="result.image" id="photo" [src]="getImage(result.image)" alt="Product Image">
+                  <img *ngIf="!result.image"
+                    src="./assets/Images/ImageNotAvailable.png"
+                    alt="Dummy Image">
+                </div>
+              </div>
+              <div class="col-lg-7 col-md-6">
+                <div class="product-details">
+                  <p class="fs-4 m-0">{{ result.name }}</p>
+                  <p class="fs-6 m"><span class="lead fw-semibold">{{ result.brand
+                      }}</span>
+                  </p>
+                 </div>
+              </div>
+              <div class="col-lg-2 col-md-6">
+                <div class="product-action">
+                  
+
+                  <div *ngIf="isLoggedIn; else loginSection">
+                    <p class="fw-bolder fs-3">{{ result.price | currency:'₹' }}</p>
+                  </div>
+                  
+                  <ng-template #loginSection>
+                    <a class="login-link" [routerLink]="'/product/' + result.productCode">Login</a> <span class="center-text">to view the price</span>
+                  </ng-template>
+
+                  <button *ngIf="isLoggedIn" [routerLink]="'/product/' + result.productCode"
+                    class="btn btn-primary view-details-btn">View</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

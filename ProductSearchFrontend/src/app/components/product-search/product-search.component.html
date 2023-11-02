@@ -1,0 +1,37 @@
+<section class="search-section">
+  <div class="container">
+    <div class="row gy-2 gx-3 align-items-center">
+      <div class="search-bar-wrapper">
+        <div class="search-bar">
+          <h2 class="search-bar-heading text-center">Search Products</h2>
+
+          <form [formGroup]="searchForm" (ngSubmit)="onSubmit()"
+            class="searchform d-flex flex-xl-row flex-lg-row flex-column gap-2">
+            <div class="form-floating">
+              
+              <input type="text" class="form-control" id="name" placeholder="Enter product name" formControlName="name">
+              <label for="name">Product Name</label>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="code" placeholder="Enter product code" formControlName="code">
+              <label for="code">Product Code</label>
+
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="brand" placeholder="Enter brand name" formControlName="brand">
+              <label for="brand">Brand</label>
+            </div>
+
+            <div class="d-grid gap-2 col-auto">
+              <button type="submit" class="btn btn-primary btn-lg">Search</button>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+

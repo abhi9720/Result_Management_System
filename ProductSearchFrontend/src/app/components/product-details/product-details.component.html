@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="product-details">
+      <div class="product-card">
+        <app-back-button></app-back-button>
+        <div class="product-card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="product-card-image">
+                <img *ngIf="product?.image" [src]="getImage(product.image)" class="product-image" alt="Product Image">
+                <img *ngIf="!product?.image" class="dummy-image" src="./assets/Images/ImageNotAvailable.png" alt="Dummy Image">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="product-card-content">
+                <h5 class="card-title product-name">{{ product?.name }}</h5>
+                <p class="card-text m-0">Brand: <span class="product-brand"> <strong>{{ product?.brand }}</strong> </span></p>
+                <p class="card-text">Price: <span class="product-price"><strong>{{ product?.price | currency:'₹' }}</strong></span></p>
+                <p class="card-text product-description">{{ product?.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="serviceability-check">
+        <form class="row">
+          <div class="col-6">
+            <label for="pincode" class="form-label">Search Product Serviceability</label>
+            <input type="text" id="pincode" class="form-control" [(ngModel)]="pincode" placeholder="Pincode" name="pincode">
+          </div>
+          <div class="col-6">
+            <button class="btn btn-primary" (click)="checkServiceability()">Submit</button>
+          </div>
+        </form>
+        <p class="service-message">{{ serviceMessage }}</p>
+      </div>
+    </div>
+  </div>
+  

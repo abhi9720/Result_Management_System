@@ -1,0 +1,5 @@
+<ngb-alert class="alert fixed-alert" *ngIf="alertService.showAlert" [type]="alertService.alertType"
+    (closed)="hideAlert()">
+    
+   <span> {{ alertService.alertMessage }}</span>
+</ngb-alert>
